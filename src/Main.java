@@ -4,21 +4,22 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        String q1 = "Di che colore era il cavallo bianco di Napoleone?\n" + "(a)Bianco\n(b)Verde\n(c)Nero\n(d)Rosso\n";
-        String q2 = "Di che colore è la mela?\n" + "(a)Bianco\n(b)Verde\n(c)Nero\n(d)Rosso\n";
-        Question[] questions = {new Question(q1, "a"), new Question(q2, "d")};
+        GeneralCultureQuestions gcq = new GeneralCultureQuestions();
+        String[] questions = gcq.getGeneralCultureQuestions();
         test(questions);
     }
-    public static void test(Question[] questions){
+    public static void test(String[] generalCultureQuestions){
         int score = 0;
         Scanner keyboardInput = new Scanner(System.in);
-        for(int i = 0; i < questions.length; i++){
-            System.out.println(questions[i].getQuestion());
+        for(int i = 0; i < generalCultureQuestions.length; i++){
+            String[] parts = generalCultureQuestions[i].split("\n");
+            System.out.println(parts[0]);
+            String correctAnswer = parts[1].substring(0, 1);
             String answer = keyboardInput.nextLine();
-            if(answer.equals(questions[i].getAnswer())){
+            if(answer.equalsIgnoreCase(correctAnswer)){
                 score++;
             }
         }
-        System.out.println("You got: " + score + "/" + questions.length);
+        System.out.println("You got: " + score + "/" + generalCultureQuestions.length);
     }
 }
